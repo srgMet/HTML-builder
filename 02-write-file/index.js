@@ -3,10 +3,10 @@ const process = require('process');
 const fs = require('fs');
 const path = require('path');
 
-fs.access('text.txt', function (err) {
+fs.access( path.join(__dirname ,'text.txt'), function (err) {
   if (err) {
     fs.writeFile(
-      path.join('text.txt'), '', (err) => {
+      path.join(__dirname ,'text.txt'), '', (err) => {
         if (err) throw err;
         console.log('Файл был создан');
       }
@@ -21,10 +21,15 @@ process.stdin.on('data', data => {
     process.exit();
   }
   else{
-    fs.appendFile('text.txt', data, err => {
+    fs.appendFile( path.join(__dirname ,'text.txt'), data, err => {
       if (err) throw err;
     });
   }
 });
 
-process.on('exit', () => console.log('Заходите еще)'));   
+process.on('SIGINT', () => {
+   process.stdout.write('Заходите еще\n');
+   process.exit();
+});
+
+process.on('exit', () => console.log('exo-xo'));
