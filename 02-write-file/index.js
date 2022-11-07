@@ -1,4 +1,3 @@
-
 const process = require('process');
 const fs = require('fs');
 const path = require('path');
@@ -16,20 +15,20 @@ fs.access( path.join(__dirname ,'text.txt'), function (err) {
 
 process.stdout.write('Введите текст\n');
 
-process.stdin.on('data', data => {
-  if (data.toString().trim() === 'exit') {
+process.stdin.on('data', chunk => {
+  if (chunk.toString().trim() === 'exit') {
     process.exit();
   }
   else{
-    fs.appendFile( path.join(__dirname ,'text.txt'), data, err => {
+    fs.appendFile(path.join(__dirname, 'text.txt'), chunk, err => {
       if (err) throw err;
     });
   }
 });
 
 process.on('SIGINT', () => {
-   process.stdout.write('Заходите еще\n');
-   process.exit();
+  process.stdout.write('e-xo-xo\n');
+  process.exit();
 });
 
-process.on('exit', () => console.log('exo-xo'));
+process.on('exit', () => console.log('Заходите еще'));
